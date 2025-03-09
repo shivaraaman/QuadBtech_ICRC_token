@@ -1,0 +1,11 @@
+{
+  "__Candid_UI": {
+    "local": "bnz7o-iuaaa-aaaaa-qaaaa-cai"
+  },
+  "icrc1_ledger_canister": {
+    "local": "mxzaz-hqaaa-aaaar-qaada-cai"
+  },
+  "token_transfer_from_backend": {
+    "local": "bd3sg-teaaa-aaaaa-qaaba-cai"
+  }
+}
