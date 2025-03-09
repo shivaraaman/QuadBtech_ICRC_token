@@ -1,0 +1,23 @@
+{
+  "canisters": {
+      "token_transfer_from_backend": {
+          "candid": "src/token_transfer_from_backend/token_transfer_from_backend.did",
+          "package": "token_transfer_from_backend",
+          "type": "rust"
+      },
+      "icrc1_ledger_canister": {
+          "type": "custom",
+          "candid": "icrc1_ledger.did",
+          "wasm": "icrc1_ledger.wasm.gz",
+          "specified_id": "mxzaz-hqaaa-aaaar-qaada-cai"
+      }
+  },
+  "defaults": {
+      "build": {
+          "args": "",
+          "packtool": ""
+      }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
