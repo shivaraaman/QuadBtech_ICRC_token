@@ -37,7 +37,7 @@ Ensure the following dependencies are installed:
 
 ### **Clone the Repository**  
 ```sh
-git clone <your-github-repo-url>
+git clone <https://github.com/shivaraaman/QuadBtech_ICRC_token>
 cd token_transfer_from_backend
 ```
 
@@ -109,11 +109,6 @@ cargo test --test token_tests
 🚀 **Multi-user Authentication**  
 🚀 **Optimized Transaction Fees**  
 🚀 **Deployment on ICP Mainnet**  
-
----
-
-## **Contributing**  
-Feel free to fork the project, submit PRs, or raise issues. Contributions are welcome! 🎉  
 
 ---
 
