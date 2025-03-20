@@ -48,17 +48,48 @@ dfx start --background --clean
 
 ### **Deploy Smart Contracts**  
 ```sh
-dfx deploy icrc1_ledger_canister --argument "(variant { Init = record { ... } })"
-dfx deploy token_transfer_from_backend
+dfx deploy icrc1_ledger_canister --argument "(variant {
+  Init = record {
+    token_symbol = \"ICRC1\";
+    token_name = \"L-ICRC1\";
+    minting_account = record {
+      owner = principal \"$(dfx identity --identity anonymous get-principal)\"
+    };
+    transfer_fee = 10_000;
+    metadata = vec {};
+    initial_balances = vec {
+      record {
+        record {
+          owner = principal \"$(dfx identity --identity default get-principal)\";
+        };
+        10_000_000_000;
+      };
+    };
+    archive_options = record {
+      num_blocks_to_archive = 1000;
+      trigger_threshold = 2000;
+      controller_id = principal \"$(dfx identity --identity anonymous get-principal)\";
+    };
+    feature_flags = opt record {
+      icrc2 = true;
+    };
+  }
+})"
 ```
 
 ### **Check Canister Status**  
 ```sh
-dfx canister status icrc1_ledger_canister
-dfx canister status token_transfer_from_backend
+dfx canister call icrc1_ledger_canister icrc1_balance_of "(record {
+  owner = principal \"$(dfx identity --identity default get-principal)\";
+})"
 ```
 
 ---
+
+### **Deploy the token transfer cansiter**  
+```sh
+dfx deploy token_transfer_from_backend
+```
 
 ## **Usage**  
 
@@ -71,17 +102,23 @@ dfx canister call icrc1_ledger_canister icrc1_balance_of "(record {
 
 ### **2️⃣ Approve Token Spending**  
 ```sh
-dfx canister call icrc1_ledger_canister icrc2_approve "(record {
-  spender = record { owner = principal \"$(dfx canister id token_transfer_from_backend)\" };
-  amount = 10_000_000_000 : nat;
-})"
+dfx canister call --identity default icrc1_ledger_canister icrc2_approve "(
+  record {
+    spender= record {
+      owner = principal \"$(dfx canister id token_transfer_from_backend)\";
+    };
+    amount = 10_000_000_000: nat;
+  }
+)"
 ```
 
 ### **3️⃣ Transfer Tokens**  
 ```sh
 dfx canister call token_transfer_from_backend transfer "(record {
   amount = 100_000_000;
-  to_account = record { owner = principal \"$(dfx canister id token_transfer_from_backend)\"; }
+  to_account = record {
+    owner = principal \"$(dfx canister id token_transfer_from_backend)\";
+  };
 })"
 ```
 
